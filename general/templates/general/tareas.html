@@ -1,0 +1,62 @@
+{% extends 'general/base.html' %} 
+{% block content %}
+
+<div class="p-5 bg-image" style="
+background-image: url('https://images6.alphacoders.com/526/526888.jpg');
+height: 700px;
+">
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+    <div class="card" style="width: 18rem; 
+    background-image: url('https://i.pinimg.com/564x/39/d5/22/39d52280eb439f487c6553cd2710bbd2.jpg');
+    backdrop-filter: blur(1px);">
+
+      </div>
+      <div class="card-body">
+        <form action="/tareas/" method="POST"  class="box">
+          <h1 class="has-text-centered mb-5 is-size-3">Crear productos </h1>
+          {% csrf_token %}
+            <div class="field">
+              <label for="" class="label">Nombre</label>
+              <div class="control has-icons-left">
+                {{ form.nombre}}
+                <span class="icon is-small is-left">
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label">descripcion</label>
+              <div class="control has-icons-left">
+                {{ form.descripcion}}
+                <span class="icon is-small is-left">
+                  
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="" class="label">precio</label>
+                <div class="control has-icons-left">
+                  {{ form.precio}}
+                
+              </div>
+              <button class="btn btn-primary btn-lg">
+                Crear
+              </button>
+            </div>  
+          
+</body>
+</html>
+
+
+
+
+{% endblock %}

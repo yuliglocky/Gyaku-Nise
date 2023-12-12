@@ -1,0 +1,352 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Tienda</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(2, 2, 2);
+            color: rgb(5, 5, 5)414;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+  
+        .video-container {
+            position: relative;
+        }
+  
+        video {
+            width: 100%;
+            height: auto;
+        }
+  
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(252, 246, 246, 0.7);
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+        }
+  
+        .product-display {
+            max-width: 120px;
+            max-height: 120px;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #fff;
+            border-radius: 8px;
+        }
+
+        #buscar {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 80px;
+            height: 40px;
+            background: rgb(143, 14, 111);
+            line-height: 40px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: .5s;
+            overflow: hidden;
+        } 
+
+        #buscar img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .card-busqueda {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(214, 52, 160, 0.8);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        #carrito {
+            max-width: 30px;
+            max-height: 30px;
+            object-fit: cover;
+        }
+
+        #buscar img, #carrito img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        #carrito-container {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 60px;
+            width: 200px;
+            background-color: #000000;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        #toggle-carrito img, #buscar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner {
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .producto-card {
+            backdrop-filter: blur(1px);
+            background-color: rgba(34, 33, 33, 0);
+            transition: transform 0.3s;
+        }
+
+        .producto-card:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-agregar, .btn-detalles {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-agregar {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .btn-detalles {
+            background-color: #ff07c9;
+            color: #000;
+        }
+
+        .precio {
+            color: #00bcd4;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .recommended-images {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .recommended-images img {
+            max-width: 500px;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+        h3{
+            color: #000000; /* Cambia el color según tus preferencias */
+            font-size: 2em; /* Ajusta el tamaño del texto */
+            font-weight: bold; /* Puedes ajustar la negrita según tu preferencia */
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        h2 {
+            color: #000000; /* Cambia el color según tus preferencias */
+            font-size: 1.5em; /* Ajusta el tamaño del texto */
+            text-align: center; /* Alinea el texto al centro */
+        }
+        h1 {
+            color: #ffffff;
+            transition: transform 0.3s ease; /* Agrega una transición para suavizar el efecto de movimiento */
+            font-size: 2em; /* Ajusta el tamaño del texto */
+            font-weight: bold; /* Puedes ajustar la negrita según tu preferencia */
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        p {
+            color: rgb(12, 12, 12); /* Cambia el color a rojo */
+            font-size: 12px; /* Cambia el tamaño a 24px */
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="recommended-images">
+            <img src="https://i.pinimg.com/564x/53/9f/82/539f82cb6d4cfb2280ff63a7298cdc91.jpg" alt="Recomendado 1">
+            <img src="https://i.pinimg.com/736x/22/33/63/2233638f2524e31d905f7789ac8526bf.jpg" alt="Recomendado 2">
+            <img src="https://i.pinimg.com/564x/f9/d2/bd/f9d2bd0090404062583e65ce2b22032a.jpg" alt="Recomendado 3">
+        </div>
+    
+        <div class="container text-center"> 
+            <h1>ES HORA DE BUSCAR TU PRODUCTO QUE QUIERAS COMPRAR </h1>
+            <h1>† </h1>
+            <br> 
+            <div class="container h-auto mw-100" style="background-color: rgb(51, 7, 29); height: 800px;">
+                <div class="d-flex align-items-center flex-column mb-5">
+                    <div class="container mw-30 mb-auto p-2">
+                        <div class="card text-center text-light fw-semibold"  style="backdrop-filter: blur(1px); background-color: rgba(7, 7, 7, 0.849)" >
+                            <form method="get" action="{% url 'product_search' %}">
+                                {{ form }}
+                                <button id="buscar" type="submit">
+                                    
+                                        ㊛🔎㊛
+                                  
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="card">
+                  <img src="https://i.pinimg.com/564x/76/18/2d/76182d57c61d16909924693a1745952d.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h3 class="card-title"> MANGAS ㊛ </h3>
+                    <p class="card-text"></p>
+                  </div>
+               </div>  
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                  <img src="https://i.pinimg.com/564x/99/b8/13/99b8133e136b440eaac32fb005ecc02c.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h3 class="card-title"> COSPLAY㊛ </h3>
+                    <p class="card-text"> </p>
+                  </div>
+               </div>  
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                  <img src="https://i.pinimg.com/564x/2f/d0/da/2fd0dafb124641d91848ea7d3e89684f.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h3 class="card-title"> FIGURAS㊛ </h3>
+                    <p class="card-text"></p>
+                  </div>
+               </div>  
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                  <img src="https://i.pinimg.com/564x/76/18/2d/76182d57c61d16909924693a1745952d.jpg" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h3 class="card-title"> COMICS㊛ </h3>
+                    <p class="card-text"></p>
+                  </div>
+               </div>  
+            </div>
+            </div>    
+            <hr>
+          </div>
+          </div>
+    </div>
+    
+              
+                <div class="container">
+                    <div class="row">
+                        <!-- Tarjeta del Carrito -->
+                        <div class="col-md-3">
+                            <div class="card " style="backdrop-filter: blur(1px); background-color: rgba(7, 7, 7, 0.849)" >
+                                <div class="card-body">   
+                                    <button id="toggle-carrito">
+                                        ㊛🛒㊛
+                                    </button>
+                                    <div id="carrito-container">
+                                        <!-- Contenido del carrito -->
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tarjetas de Productos -->
+                        <div class="col-md-9">
+                            <div class="card " style="backdrop-filter: blur(1px); background-color: rgba(7, 7, 7, 0.849)" >
+                                <div class="row mt-2">
+                                    {% for p in results %}
+                                    <div class="col-md-4 mb-3" data-category="{{ p.categoria.nombre }}">
+                                        <div class="card producto-card" >
+                                            <div class="card-body " style="backdrop-filter: blur(1px); background-color: rgba(233, 68, 90, 0.849)">
+                                                <h5 class="card-title text-white fw-bold">{{ p.nombre }}</h5>
+                                                {% if p.imagen %}
+                                                <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" class="product-display">
+                                                {% endif %}
+                                                <div class="row">
+                                                    <div class="col mt-4">
+                                                        <a href="{% url 'agregar_al_carrito' p.id %}" class="btn btn-agregar hvr-float">Agregar al Carrito</a>
+                                                        <a href="{% url 'detalle' p.id %}" class="btn btn-detalles hvr-float">Ver Detalles</a>
+                                                    </div>
+                                                    <div class="col mt-3 precio">${{ p.precio }}</div>
+                                                </div>
+                                            </div>      
+                                        </div>  
+                                    </div>
+                                    {% empty %}
+                                    <p>No hay productos disponibles.</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Utiliza jQuery para cargar el contenido del carrito de forma asíncrona
+            function cargarCarrito() {
+                $.ajax({
+                    url: "{% url 'obtener_informacion_carrito' %}",
+                    type: 'GET',
+                    success: function(data) {
+                        // Inserta el contenido del carrito en el contenedor
+                        $('#carrito-container').html(data);
+                    }
+                });
+            }
+            
+            $('#toggle-carrito').on('click', function() {
+                $('#carrito-container').toggle();
+                // Si el carrito se muestra, actualiza su contenido
+                if ($('#carrito-container').is(':visible')) {
+                    cargarCarrito();
+                }
+            });
+            // Carga el carrito al cargar la página
+            cargarCarrito();
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}

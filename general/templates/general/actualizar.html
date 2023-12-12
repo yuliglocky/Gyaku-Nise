@@ -1,0 +1,77 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+
+{% block content %}
+<html>
+
+<style>
+    body {
+        background-color: #000000;
+        color: #fff;
+        position: relative;
+    }
+
+    .video-container {
+        position: relative;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .product-image {
+            max-width: 350px; /* Set the maximum width */
+            max-height: 350px; /* Set the maximum height */
+            width: auto; /* Maintain the aspect ratio */
+            height: auto; /* Maintain the aspect ratio */
+            display: block; /* Remove any extra spacing */
+            margin: 0 auto; /* Center the image horizontally */
+    }
+</style>
+
+<div class="video-container">
+    <div>
+      <video autoplay muted preload="auto" loop width="2000" height="2000">
+        <source src="{% static 'imagen/mylivewallpapers-com-Walking-Warrior-4K.mp4' %}" type="video/mp4">
+      </video>
+        <div class="overlay">
+          
+            <figure>
+                  <blockquote class="blockquote" style="font-size: 20px; padding: 10px;">
+                    <p> EDITA TU PRODUCTO AQUI! Mucho cuidado con la informacion que alteran.</p>
+                  </blockquote>
+                  <figcaption class="blockquote-footer fst-italic" style="font-size: 20px;">
+                    No pongan cosas obcenas >:( <cite title="Source Title"> -the paradox </cite>
+                  </figcaption>
+            </figure>
+            <div class="card mt-5 border border-0" style="background-color: rgba(255, 128, 0, 0.5); ">
+            <div class="card-body">
+                <div class="col-md-4 mb-3">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-outline-success bg-light">✎ Editar Producto</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% for producto in carrito %}
+        <div class="card-body">
+            <span>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }} - Precio: ${{ producto.precio }}</span>
+        </div>
+    
+{% endfor %}
+
+<a href="/ver-carrito"  class="btn btn-warning text-center lh-1 fw-bold text-black fs-3" 
+style="
+height: 65px;
+width: 200px;
+" >
+<br />Pago</a>
+

@@ -1,0 +1,168 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<style>
+    /* Estilo personalizado para la página */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #030303;
+    }
+
+    section {
+        text-align: center;
+        padding: 20px;
+        background-color: #000000; /* Cambia este color según tus preferencias */
+        margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 1s ease-out; /* Agrega una animación de entrada */
+    }
+
+    #banner {
+        margin-bottom: 20px; /* Ajusta el espacio entre el banner y el contenido */
+    }
+
+    #carrito-container {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column; /* Cambia a dirección de columna para apilar productos */
+        align-items: center; /* Centra los productos horizontalmente */
+        gap: 10px;
+    }
+
+    .producto {
+        width: 250px; /* Ajusta el ancho del recuadro de producto */
+        padding: 10px;
+        background-color: #fff;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+ 
+
+    /* Estilo personalizado para el botón de PayPal */
+    #paypal-button-container {
+        max-width: 500px;
+        margin: 0 auto; /* Centrar el contenedor */
+    }
+
+    /* Estilo adicional para los botones de PayPal */
+    .paypal-button {
+        max-width: 150px;
+        margin: 10px;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+</head>
+<body>
+    <section>
+        <div id="banner">
+            <img src="https://i.pinimg.com/564x/53/eb/c2/53ebc24c876ed74530b4e5245bfdc5ac.jpg" alt="Banner">
+        </div>
+        <div id="carrito-container">
+            {% for producto in carrito %}
+                <div class="producto">
+                    <span>{{ producto.nombre }} - Cantidad: {{ producto.cantidad }} - Precio: ${{ producto.precio }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Contenedor del botón de PayPal -->
+        <div id="paypal-button-container"></div>
+    </section>
+
+    <!-- Incluye el SDK de JavaScript de PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVTzhLq2OnfeU1y_FGqsp11Uqoz-Ua6nvDofnQnWT_1-2TSiMcev7m_rkmq38NLPTey-hxDc9-PY38f6&currency=USD"></script>
+
+    <script>
+            function obtenerInformacionCarrito() {
+            var carritoContainer = document.getElementById('carrito-container');
+            var productosEnCarrito = [];
+
+            // Obtener información de cada producto en el carrito
+            var productos = carritoContainer.getElementsByClassName('producto');
+            for (var i = 0; i < productos.length; i++) {
+                var nombre = productos[i].querySelector('span').innerText.split(' - ')[0];
+                var cantidad = productos[i].querySelector('span').innerText.split(' - ')[1].split(': ')[1];
+                var precio = productos[i].querySelector('span').innerText.split(' - ')[2].split(': $')[1];
+                productosEnCarrito.push({
+                    id: i, // Asigna un identificador único para cada producto
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    precio: precio
+                });
+            }
+
+            return productosEnCarrito;
+            
+        }
+        
+      
+
+        // Renderizar el botón de PayPal
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                disableMaxWidth: true
+            },
+            createOrder: function(data, actions) {
+                var productosEnCarrito = obtenerInformacionCarrito();
+                var totalCarrito = calcularTotalCarrito(productosEnCarrito);
+
+                return actions.order.create({
+                    purchase_units: [{
+                        description: 'Descripción del pedido',
+                        amount: {
+                            currency_code: 'USD',
+                            value: totalCarrito.toFixed(2)
+                        },
+                    }],
+                    custom: JSON.stringify({ carrito: productosEnCarrito }),
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+            // Lógica adicional después de que el pago ha sido aprobado
+            console.log(details);
+            // Vaciar el carrito después de una compra exitosa
+            vaciarCarritoDespuesDeCompraExitosa();
+        });
+    }
+        }).render('#paypal-button-container');
+
+        function vaciarCarritoDespuesDeCompraExitosa() {
+    // Redirigir a la página para vaciar el carrito después de una compra exitosa
+    window.location.href = "{% url 'vaciar_carrito' %}?pago_exitoso=1";
+         }
+        function calcularTotalCarrito(productosEnCarrito) {
+            var total = productosEnCarrito.reduce(function (acumulador, producto) {
+                return acumulador + parseFloat(producto.precio) * parseInt(producto.cantidad);
+            }, 0);
+
+            return total;
+        }
+
+        
+    </script>
+   
+</body>
+</html>
+
+{% endblock %}

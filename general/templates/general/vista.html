@@ -1,0 +1,170 @@
+{% extends 'general/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<html>
+<head>
+  <style>
+      body {
+          background-color: #000;
+          color: #fff;
+          position: relative;
+      }
+
+      .video-container {
+          position: relative;
+      }
+
+      video {
+          width: 100%;
+          height: auto;
+      }
+
+      .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+          color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: -1;
+      }
+
+      .product-image {
+            max-width: 200px; /* Set the maximum width */
+            max-height: 200px; /* Set the maximum height */
+            width: auto; /* Maintain the aspect ratio */
+            height: auto; /* Maintain the aspect ratio */
+            display: block; /* Remove any extra spacing */
+            margin: 0 auto; /* Center the image horizontally */
+    }
+  </style>
+
+</head>
+
+
+<section style="height: 500px;">
+<div class="video-container">
+    <div class="columns is-centered">
+        <div>
+        <video autoplay muted preload="auto" loop width="900" height="100">
+            <source src="{% static 'imagen/video6.mp4' %}" type="video/mp4">
+        </video>
+        </div>
+    </div>
+</div>
+</section>
+
+<section>
+    <div class="container h-auto mw-100" style="background-color: #db721c; height: 800px;">
+    <div class="d-flex align-items-center flex-column mb-3">
+        <div class="container mw-70 mb-auto p-2">
+            <div class="card text-center text-light fw-semibold" 
+            style="background: rgba(255, 255, 255, 0);
+            border: none;
+            font-size: 65px;
+            letter-spacing: 3px;"> 
+            PRODUCTOS A LA VENTA</div>
+            <div class="card text-center mt-2 mw-100">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link text-info" aria-current="true" href="">All</a>
+                </li>
+                {% for c in categorias %}
+                <li class="nav-item">
+                    <a class="nav-link text-info category-link" href="#" data-category="{{ c.nombre }}">
+                        {{ c.nombre }}
+                    </a>
+                </li>
+             
+                {% endfor %}
+                </ul>
+                </div>
+                <div class="card-body">
+                    <p class="card-text text-black fs-5 fst-italic"> Explora toda nuestra variedad de productos, desde cosmeticos hasta coleccionables ha precios accesibles.
+                        <br /> Para saber mas de las categorias puedes pulsar aqui: </p>
+                    <a href="/categoria"  class="btn btn-warning text-center lh-1 fw-bold text-black fs-3" 
+                        style="background-image: url('https://i.pinimg.com/originals/75/48/2a/75482a94b3d38985b6a785f93b1b93fc.gif');
+                        background-repeat:no-repeat;
+                        height: 100px;
+                        width: 286px;
+                     background-position:center;" >
+                     <br />✎EDITAR</a>
+                </div>
+           
+            </div>
+        </div>  
+    </div> 
+    <div class="container h-auto mw-70">   
+        <div class="row mt-4">
+            {% for p in productos %}
+            <div class="col-md-4 mb-3 product-card" data-category="{{ p.categoria.nombre }}">
+                <div class="card" style="backdrop-filter: blur(1px); background-color: rgba(255, 255, 255, 0.50);">
+                    <div class="card-body" style="backdrop-filter: blur(10px);">
+                        <h5 class="card-title text-black fw-bold">{{ p.nombre }}</h5>
+                        {% if p.imagen %}
+                        <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" class="product-image">
+                        {% endif %}
+                        <div class="row">
+                            <div class="col mt-4">
+                            <a href="{% url 'detalle' p.id %}" class="btn btn-success">Ver Detalles</a>
+                         
+                            </div>
+                            <div class="col mt-3 text-warning text-end fs-1">${{ p.precio }}</div>
+                           
+                            <div class="col-mt-2"></div>
+                        </div>
+                    </div>      
+                </div>  
+            </div>
+            {% empty %}
+                <p>No hay productos disponibles.</p>
+            {% endfor %}
+
+        </div>
+    </div>
+    </div>
+</section>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function(){   
+
+        var filterButton = document.getElementById('filter-button');
+        categoryLinks = document.getElementsByClassName('category-link');
+        var productCards = document.getElementsByClassName('product-card');
+
+        for (var i = 0; i < categoryLinks.length; i++) {
+        categoryLinks[i].addEventListener('click', function(event) {
+            event.preventDefault();
+            var selectedCategory = event.target.getAttribute('data-category').trim().toLowerCase();
+            aplicarFiltro(selectedCategory);
+        });
+    }
+
+    function aplicarFiltro(selectedCategory){
+
+        for (var i=0; i < productCards.length; i++){
+                var category = productCards[i].getAttribute('data-category').trim().toLowerCase();
+                var card = productCards[i];
+                console.log('card Category:', category);
+
+                if (selectedCategory === 'ALL' || category === selectedCategory){
+                    productCards[i].style.display = 'block';
+                } else {
+                    productCards[i].style.display = 'none';
+                }
+            }
+    }       
+    });
+
+
+</script>
+
+</html>
+
+{% endblock %}

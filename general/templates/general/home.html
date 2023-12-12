@@ -1,0 +1,503 @@
+{% include 'general/_navbar.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<style>
+   body {
+            font-family: Woodland;
+            
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200vh; /* Asegurarse de que haya suficiente contenido para hacer scroll */
+            background-color: rgb(20, 13, 23);
+            transition: background-color 0.5s ease; /* Agregamos una transición para suavizar el cambio de color */
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Coloca las partículas detrás del contenido */
+        }
+        main {
+            width: 80%;
+            max-width: 1200px;
+            text-align: center;
+        }
+        
+        h3{
+            color: #ffffff; /* Cambia el color según tus preferencias */
+            font-size: 2em; /* Ajusta el tamaño del texto */
+            font-weight: bold; /* Puedes ajustar la negrita según tu preferencia */
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        h2 {
+            color: #ffffff; /* Cambia el color según tus preferencias */
+            font-size: 1.5em; /* Ajusta el tamaño del texto */
+            text-align: center; /* Alinea el texto al centro */
+        }
+        
+    #advertisement, #recommendations, #creators, #social-media, footer {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        #creators img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin: 10px;
+            border-radius: 60%;
+            transition: transform 0.3s ease;
+        }
+
+        #creators img:hover {
+            transform: scale(1.2);
+        }
+
+        #social-media img {
+            max-width: 50px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        #social-media img:hover {
+            transform: scale(1.2);
+        }
+
+        #recommendations {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .filter-buttons {
+            margin-bottom: 20px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .filters {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #000000;
+            margin-top: 20px;
+        }
+        .video-container {
+        position: relative;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+    .card {
+            width: 600px;
+            padding: 1px;
+            background-color: #fff;
+            border-radius: 4x;
+            box-shadow: 0 4px 8px rgba(205, 3, 255, 0.1);
+            background-color: rgba(72, 50, 133, 0); /* Fondo semi-transparente */
+            top: 5%;
+            left: 90%;
+            transition: transform 0.3s ease; /* Agrega una transición para suavizar el movimiento */
+          
+        }
+
+        .card:hover {
+            transform: translateY(-10px); /* Desplaza el card hacia arriba al tocarlo */
+        }
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(72, 50, 133, 0); /* Fondo semi-transparente */
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h1 {
+            color: #ffffff;
+            transition: transform 0.3s ease; /* Agrega una transición para suavizar el efecto de movimiento */
+            font-size: 2em; /* Ajusta el tamaño del texto */
+            font-weight: bold; /* Puedes ajustar la negrita según tu preferencia */
+            text-align: center; /* Alinea el texto al centro */
+        }
+
+        h1:hover {
+            transform: scale(1.2); /* Escala el texto al 120% al tocarlo */
+        }
+
+        .movimiento-imagen {
+            width: 200px;
+            height: 500px;
+            transition: transform 0.3s ease; /* Agrega una transición para suavizar el movimiento */
+        }
+
+        .movimiento-imagen:hover {
+            transform: scale(1.2); /* Escala la imagen al 120% al tocarla */
+        }
+
+        p {
+            color: rgb(255, 255, 255); /* Cambia el color a rojo */
+            font-size: 12px; /* Cambia el tamaño a 24px */
+        }
+</style>
+<body>
+  <div id="particles-js"></div>
+  <div id="particles-js"></div>
+  <main> 
+ 
+    <div class="video-container">
+      <div>
+        <video autoplay muted preload="auto" loop width="2000" height="2000">
+          <source src="{% static 'imagen/video17.mp4' %}" type="video/mp4">
+        </video>
+      
+                </div>
+<hr>
+</div>
+
+<div class="container text-center"> 
+  <h1>Bienvenido </h1>
+  <h1>† </h1>
+  <br> 
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card">
+        <img src="https://i.pinimg.com/564x/b6/81/dc/b681dc9e83d953e15e192de5dcd75ed3.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3 class="card-title"> THE PARADOX </h3>
+          <p class="card-text">¡Explora un universo de emociones y fantasía en nuestra tienda dedicada a los amantes del anime, manga, funkos, cómics y cosplay! Sumérgete en un reino lleno de personajes entrañables, historias cautivadoras y coleccionables únicos. Desde los últimos lanzamientos hasta clásicos atemporales, ofrecemos una amplia selección para satisfacer tu pasión por el mundo del entretenimiento japonés.   </p>
+        </div>
+     </div>  
+  </div>
+  </div>    
+  <hr>
+</div>
+</div>
+
+
+<div class="container text-center"> 
+<h2>  ⠤⣤⣤⣤⣄⣀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣠⣤⠤⠤⠴⠶⠶⠶⠶
+  ⢠⣤⣤⡄⣤⣤⣤⠄⣀⠉⣉⣙⠒⠤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠴⠘⣉⢡⣤⡤⠐⣶⡆⢶⠀⣶⣶⡦
+  ⣄⢻⣿⣧⠻⠇⠋⠀⠋⠀⢘⣿⢳⣦⣌⠳⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠞⣡⣴⣧⠻⣄⢸⣿⣿⡟⢁⡻⣸⣿⡿⠁
+  ⠈⠃⠙⢿⣧⣙⠶⣿⣿⡷⢘⣡⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⣿⣿⣷⣝⡳⠶⠶⠾⣛⣵⡿⠋⠀⠀
+  ⠀⠀⠀⠀⠉⠻⣿⣶⠂⠘⠛⠛⠛⢛⡛⠋⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠛⠀⠉⠒⠛⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣾⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⢻⡁⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+  ⠀⠀⠀⠀⠀⠀⠀⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+</h2>   
+<h1> ≻───── ⋆✩⋆ ─────≺</h1>
+  <h1>｡☆✼★ Productos mas populares ★✼☆｡</h1>
+  <h1>† </h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-3">
+        <img class="movimiento-imagen" src="https://i.pinimg.com/564x/55/60/d2/5560d26ca2cc9545f37d95b794899c80.jpg" class="img-responsive" style="width:100%" alt="Image">
+  
+      </div>
+      <div class="col-sm-3"> 
+        <img class="movimiento-imagen" src="https://i.pinimg.com/564x/f2/43/fb/f243fbb4f6f18b66afcdac2815c87377.jpg" class="img-responsive" style="width:100%" alt="Image">
+        <p>PRODUCTO 2</p>    
+      </div>
+      <div class="col-sm-3">
+        <div class="well">
+          <img class="movimiento-imagen" src="https://i.pinimg.com/564x/7f/18/bd/7f18bdecda74267a6981e1bc7672eb09.jpg" class="img-responsive" style="width:100%" alt="Image">
+          <p>PRODUCTO 3</p> 
+        </div>
+       
+      </div>
+      <div class="col-sm-3">
+        <div class="well">
+          <img class="movimiento-imagen" src="https://i.pinimg.com/564x/61/0f/2e/610f2e0b46b59b817cdfa0890640f85f.jpg" class="img-responsive" style="width:100%" alt="Image">
+          <p>PRODUCTO 4</p> 
+        </div>
+       
+      </div>  
+    </div>
+    <hr>
+  </div>
+
+ 
+<div class="container text-center">    
+  <h1> ≻───── ⋆✩⋆ ─────≺</h1>
+  <h1>Informacion</h1>
+  <h1>† </h1>
+  <br>
+  <div class="row">
+    <div class="col-sm-3">
+      <img src="https://i.pinimg.com/564x/d1/4e/0b/d14e0b0e881d3d2dc8608b8f4eb93b7a.jpg" class="img-responsive" style="width:100%" alt="Image">
+      <p>COMING SOON </p>
+    </div>
+    <div class="col-sm-3"> 
+      <img src="https://i.pinimg.com/564x/5a/de/cb/5adecbe9e1ebd59897092d0f80b7413a.jpg" class="img-responsive" style="width:100%" alt="Image">
+      <p>COMING SOON</p>    
+    </div>
+    <div class="col-sm-3">
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+    </div>  
+  </div>
+  <hr>
+</div>
+
+<div class="container text-center"> 
+  <h1> ≻───── ⋆✩⋆ ─────≺</h1>
+  <h3>Our Partners</h3>
+  <h1>† </h1>
+  <br>
+  <div id="creators">
+    
+    <img src="https://i.pinimg.com/736x/cc/29/cc/cc29cc84fa41ae3c40dd5c9567a1821f.jpg" alt="Creador 1">
+    <img src="https://i.pinimg.com/736x/4a/20/e3/4a20e3d8cd50a0b216c5ac5a3b368ec7.jpg" alt="Creador 2">
+    <img src="https://i.pinimg.com/736x/f7/14/da/f714da26043e2f9968033e03480853b3.jpg" alt="Creador 3">
+    <img src="https://i.pinimg.com/564x/a0/91/e0/a091e015b0b927690c694051b5eb4b97.jpg" alt="Creador 4">
+    <img src="https://i.pinimg.com/564x/69/b9/a9/69b9a9b2692a1b85d141f249d47e6db0.jpg" alt="Creador 5">
+    <!-- Puedes agregar más creadores según sea necesario -->
+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+  </div>
+</div><br>
+
+<footer class="container-fluid text-center">
+  <div id="social-media">
+    <h2>Síguenos en Redes Sociales</h2>
+    <img src="https://i.pinimg.com/564x/17/f3/d9/17f3d93a66f8428d0531ac674d55bbc4.jpg" alt="Instagram">
+    <img src="https://i.pinimg.com/564x/57/de/01/57de0194bfd4834126a70e26ab5b5c94.jpg" alt="YouTube">
+    <img src="https://i.pinimg.com/564x/1c/2e/5d/1c2e5dcdecbb5116a191351051456ec7.jpg" alt="Twitter">
+    <!-- Puedes agregar más íconos de redes sociales según sea necesario -->
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2023 Tu Página. Todos los derechos reservados.</p>
+</footer>
+</footer>
+  </main>
+<script>
+  // Animaciones al hacer scroll
+  document.addEventListener('DOMContentLoaded', function() {
+      var elements = document.querySelectorAll('#advertisement, #recommendations, #creators, #social-media, footer');
+
+      function fadeIn() {
+          elements.forEach(function(element) {
+              element.style.opacity = 1;
+              element.style.transform = 'translateY(0)';
+          });
+      }
+
+      var options = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.5
+      };
+
+      var observer = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                  fadeIn();
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, options);
+
+      elements.forEach(function(element) {
+          observer.observe(element);
+      });
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var body = document.body;
+      var main = document.querySelector('main');
+
+      function changeColorOnScroll() {
+          var scrollPosition = window.scrollY || document.documentElement.scrollTop;
+
+          // Altura total del contenido (incluyendo el área fuera de la vista)
+          var totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+          // Porcentaje de desplazamiento
+          var scrollPercentage = (scrollPosition / totalHeight) * 100;
+
+          // Cambia el color cuando el usuario llega al 90% del final de la página
+          if (scrollPercentage >= 90) {
+              body.style.backgroundColor = 'black';
+          } else {
+              body.style.backgroundColor = ''; // Vuelve al color por defecto
+          }
+      }
+
+      // Agregamos el evento de scroll
+      window.addEventListener('scroll', changeColorOnScroll);
+  });
+</script>
+<script>
+  particlesJS({
+  "particles": {
+    "number": {
+      "value": 80,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#43005f"
+    },
+    "shape": {
+      "type": "star",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "polygon": {
+        "nb_sides": 5
+      },
+      "image": {
+        "src": "img/github.svg",
+        "width": 100,
+        "height": 100
+      }
+    },
+    "opacity": {
+      "value": 0.4088700755207083,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 8.017060304327615,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": false,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": false,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": false,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true
+});
+</script>
+
+</body>
+</html>
+{% endblock %}

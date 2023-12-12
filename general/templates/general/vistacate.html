@@ -1,0 +1,101 @@
+{% extends 'general/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<html>
+<head>
+  <style>
+      body {
+          background-color: #000;
+          color: #fff;
+          position: relative;
+      }
+
+      .video-container {
+          position: relative;
+      }
+
+      video {
+          width: 100%;
+          height: auto;
+      }
+
+      .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+          color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: -1;
+      }
+
+      .product-image {
+            max-width: 200px; /* Set the maximum width */
+            max-height: 200px; /* Set the maximum height */
+            width: auto; /* Maintain the aspect ratio */
+            height: auto; /* Maintain the aspect ratio */
+            display: block; /* Remove any extra spacing */
+            margin: 0 auto; /* Center the image horizontally */
+    }
+  </style>
+</head>
+
+<section style="height: 500px;">
+<div class="video-container">
+    <div class="columns is-centered">
+        <div>
+        <video autoplay muted preload="auto" loop width="900" height="100">
+            <source src="{% static 'imagen/mylivewallpapers.com-Sad-Lamia-4K.mp4' %}" type="video/mp4">
+        </video>
+        </div>
+    </div>
+</div>
+</section>
+
+<section>
+    <div class="container h-auto mw-100" style="background-color: #000000; height: 800px;">
+    <div class="d-flex align-items-center flex-column mb-3">
+        <div class="container mw-70 mb-auto p-2">
+            <div class="card text-center text-light fw-semibold" 
+            style="background: rgba(255, 255, 255, 0);
+            border: none;
+            font-size: 65px;
+            letter-spacing: 3px;"> 
+            CATEGORIAS</div>
+            <div class="card text-center mt-2 mw-100">
+            </div>
+            {% for categoria in categoria %}
+            <div class="card text-start text-black mt-2 mw-100">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ categoria.nombre }}</h3>
+                        <p class="card-text">{{ categoria.descripcion }}</p>
+                    
+                    {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'eliminar' categoria.id %}">
+                        {% csrf_token %}
+                    <button type="submit" class="btn btn-danger mb-2">
+                        - Eliminar Categoria
+                    </button>
+                    </form>
+                    <a class="btn btn-outline-success mb-2 bg-light" href="{% url 'editar' categoria.id %}"
+                    style="
+                    height: 40px;
+                    width: 165px;
+                    position:center;" >
+                        ✎ Editar Categoria</a>
+                    {% endif %}
+                    </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+</section>
+</html>
+
+{% endblock %}

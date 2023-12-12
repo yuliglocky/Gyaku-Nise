@@ -1,0 +1,76 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        position: relative;
+    }
+
+    .video-container {
+        position: relative;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    width: 100%;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+    height: 7px;
+    background: #ddd;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px; /* Set the width of the thumb */
+    height: 26px; /* Set the height of the thumb */
+    background: #F39C12; /* Set the background color of the thumb */
+    border: 1px solid #ddd; /* Set the border color of the thumb */
+    border-radius: 50%; /* Create a circular thumb */
+    margin-top: -9px; /* Adjust the margin to center the thumb vertically */
+    }
+</style>
+</head>
+
+<section>
+  <div class="video-container">
+    <video autoplay muted preload="auto" loop width="2000" height="2000">
+      <source src="{% static 'imagen/video21.mp4' %}" type="video/mp4">
+    </video>
+        <div class="overlay">
+          <figure>
+            <blockquote class="blockquote">
+              <p> EL PAGO A SIDO COMPLETADO</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+              Que bueno que ya compraste :D <cite title="Source Title"> the paradox </cite>
+              <a href="/historial"  >
+<br />Historial de compras</a>
+            </figcaption>
+          </figure>
+
+
+          {% endblock %}

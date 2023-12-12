@@ -1,0 +1,60 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<style>
+    /* Tu estilo actual aquí */
+</style>
+</head>
+<body>
+    <section>
+        <div class="video-container">
+            <video autoplay muted preload="auto" loop width="2000" height="2000">
+                <source src="{% static 'imagen/video2.mp4' %}" type="video/mp4">
+            </video>
+            <div class="overlay">
+                <figure>
+                    <blockquote class="blockquote">
+                        <p> METODO DE PAGO </p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        <form method="post" action="https://www.sandbox.paypal.com/cgi-bin/webscr">
+                            {% csrf_token %}
+                            {{ form.render }}
+                            <input type="submit" value="Pagar con PayPal">
+                        </form>
+                        <cite title="Source Title"> the paradox </cite>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenedor del carrito de compras -->
+    <div id="paypal-button-container" style="max-width:1000px;"></div>
+
+    <!-- Incluye el SDK de JavaScript de PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AVTzhLq2OnfeU1y_FGqsp11Uqoz-Ua6nvDofnQnWT_1-2TSiMcev7m_rkmq38NLPTey-hxDc9-PY38f6&currency=USD"></script>
+
+    <script>
+        // Renderizar el botón de PayPal
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                disableMaxWidth: true
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create(generarOrden());
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Lógica adicional después de que el pago ha sido aprobado
+                    console.log(details);
+                    alert('Pago exitoso. Gracias por tu compra!');
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+
+</body>
+</html>
+{% endblock %}

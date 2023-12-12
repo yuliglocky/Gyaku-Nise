@@ -1,0 +1,103 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        position: relative;
+    }
+
+    .video-container {
+        position: relative;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    width: 100%;
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+    height: 7px;
+    background: #ddd;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px; /* Set the width of the thumb */
+    height: 26px; /* Set the height of the thumb */
+    background: #F39C12; /* Set the background color of the thumb */
+    border: 1px solid #ddd; /* Set the border color of the thumb */
+    border-radius: 50%; /* Create a circular thumb */
+    margin-top: -9px; /* Adjust the margin to center the thumb vertically */
+    }
+</style>
+</head>
+
+<section>
+  <div class="video-container">
+    <video autoplay muted preload="auto" loop width="2000" height="2000">
+      <source src="{% static 'imagen/video5.mp4' %}" type="video/mp4">
+    </video>
+        <div class="overlay">
+          <figure>
+            <blockquote class="blockquote">
+              <p> Dar la opinion del producto es la mejor decision comenta! .</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+              No digas malos comentarios <cite title="Source Title"> the paradox </cite>
+            </figcaption>
+          </figure>
+          <div class="col-md-4 mb-3">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <div class="row align-items-center">
+              <span class="star text-center" id="sliderValue">0</span>
+              </div>
+            <button type="submit" class="btn btn-outline-success bg-light mt-2">
+            + Crear comentario
+            </button>    
+            </form>
+          </div>
+        </div>
+  </div>
+</section>
+      
+</body>
+<script>
+  // Get the range input and the span for displaying the value
+  const slider = document.querySelector('#id_ranking');
+  const sliderValue = document.querySelector('#sliderValue');
+
+  // Update the span with the current value of the slider
+  slider.addEventListener('input', () => {
+      sliderValue.textContent = slider.value;
+  });
+
+  // Initial update to set the default value
+  sliderValue.textContent = slider.value;
+</script>
+</html>
+{% endblock %}

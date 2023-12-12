@@ -1,0 +1,99 @@
+{% extends 'general/base.html' %} 
+{% load static %}
+{% block content %}
+<head>
+  <style>
+      body {
+          background-color: #000;
+          color: #fff;
+          position: relative;
+      }
+
+      .video-container {
+          position: relative;
+      }
+
+      video {
+          width: 100%;
+          height: auto;
+      }
+
+      .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+          color: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+  </style>
+</head>
+<div class="video-container">
+  <div class="columns is-centered">
+    <div>
+      <video autoplay muted preload="auto" loop width="2000" height="2000">
+        <source src="{% static 'imagen/video2.mp4' %}" type="video/mp4">
+      </video>
+          <div class="overlay">
+          <form method="POST" action="/index/" class="box" style = >
+            <h2 class="has-text-centered mb-5 is-size-4">Sign in  <img src="{% static 'imagen/logo.png' %}" width="50" height="50" alt="..."></h2>
+            {% csrf_token %}
+            <div class="field">
+              <label for="" class="label">Username</label>
+              <div class="control has-icons-left">
+                {{ form.username }}
+                <span class="icon is-small is-left">
+                 
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label">Email</label>
+              <div class="control has-icons-left">
+                {{ form.email}}
+                <span class="icon is-small is-left">
+                  
+                </span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="" class="label">Password</label>
+                <div class="control has-icons-left">
+                  {{ form.password1}}
+                <span class="icon is-small is-left">
+                 
+                </span>
+              </div>
+            </div>  
+            <div class="field">
+              <label for="" class="label">Confirm Password</label>
+                <div class="control has-icons-left">
+                  {{ form.password2}}
+                <span class="icon is-small is-left">
+                </span>
+              </div>
+            </div>
+              <div class="field">
+                Already have an account? <a href="/login">Signup</a> 
+              </div>  
+            <button type="submit" class="btn btn-primary btn-block mb-4">
+              Sign in
+            </button>
+            <!-- Register buttons -->
+            <div class="text-center">
+              {{form.errors}}
+            </div>
+          </form>
+        </div>
+      </h1>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
